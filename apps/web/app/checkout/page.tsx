@@ -77,12 +77,17 @@ function CheckoutForm() {
             </p>
           )}
 
-          <div className="flex flex-wrap items-center gap-2 pt-4">
-            <Btn onClick={handleRetire} disabled={busy} isLoading={busy}>
-              {busy ? "Retiring credit…" : "Retire and get certificate"}
-            </Btn>
-            <Btn variant="secondary" type="button" onClick={() => router.push("/estimate")}>
+          <div className="flex flex-col-reverse gap-2 pt-4 sm:flex-row sm:items-center sm:justify-between">
+            <Btn
+              variant="secondary"
+              type="button"
+              className="w-full sm:w-auto"
+              onClick={() => router.push("/estimate")}
+            >
               Back to estimate
+            </Btn>
+            <Btn onClick={handleRetire} disabled={busy} isLoading={busy} className="w-full sm:w-auto">
+              {busy ? "Retiring credit…" : "Retire and get certificate"}
             </Btn>
           </div>
         </motion.div>

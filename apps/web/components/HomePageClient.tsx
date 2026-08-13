@@ -84,11 +84,12 @@ export function HomePageClient({ stats, formatted }: Props) {
             <span className="h-1.5 w-1.5 rounded-full bg-aurora-carbon" />
             Protocol Camp · Fuji
           </span>
-          <h1 className="mt-2 font-display text-lg font-semibold leading-[1.14] tracking-tight text-aurora-fg sm:text-xl xl:text-2xl">
-            Measure your AI footprint. Retire real carbon.
+          <h1 className="mt-2 font-display text-lg font-semibold leading-[1.2] tracking-tight text-aurora-fg sm:text-xl xl:text-2xl">
+            Measure AI emissions,
+            <span className="block">retire verified carbon</span>
           </h1>
-          <p className="mt-2 text-xs leading-relaxed text-aurora-fg-muted sm:text-sm">
-            Honest range estimates, batched retirement of verified Carbonmark credits, and an Avalanche receipt you can share.
+          <p className="mt-2.5 text-xs leading-relaxed text-aurora-fg-muted sm:text-sm">
+            Estimate CO₂ from model usage, retire verified Carbonmark credits in batches, and share a certificate on Avalanche Fuji.
           </p>
         </div>
         <div className="flex items-stretch gap-2 pt-3">
