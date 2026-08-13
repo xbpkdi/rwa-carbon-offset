@@ -200,15 +200,18 @@ export function HomePageClient({ stats, formatted }: Props) {
       </Card>
 
       <Card className="justify-center py-3 lg:col-span-3 lg:col-start-1 lg:row-span-1 lg:row-start-6">
-        <a href="https://www.team1.network" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between gap-3">
-          <span className="flex min-w-0 items-center gap-3">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-aurora-border bg-aurora-panel text-aurora-carbon">✓</span>
-            <span className="min-w-0">
-              <span className="block text-xs font-medium text-aurora-fg">Avalanche Team1 (Thailand)</span>
-              <span className="block truncate text-[11px] text-aurora-fg-muted">team1.network</span>
-            </span>
+        <a href="/certificate/demo" className="flex items-center justify-between gap-3">
+          <span className="min-w-0">
+            <span className="block text-xs font-medium text-aurora-fg">Carbonmark verified</span>
+            <span className="block text-[11px] text-aurora-fg-muted">on Avalanche</span>
           </span>
-          <span className="shrink-0 font-mono text-[11px] text-aurora-carbon">Visit →</span>
+          <span className="inline-flex shrink-0 items-center gap-1 font-mono text-[11px] text-aurora-carbon">
+            View proof
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3" aria-hidden="true">
+              <path d="M7 17L17 7" />
+              <path d="M7 7h10v10" />
+            </svg>
+          </span>
         </a>
       </Card>
 
