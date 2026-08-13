@@ -1,4 +1,4 @@
-// PHASE-1 APPROXIMATION — replace with EcoLogits port
+// v0 approximation for hackathon demo — not EcoLogits yet; replace with EcoLogits port later
 export const V0_FACTORS = {
   version: "v0-2026-08-anchored",
   pue: 1.1,

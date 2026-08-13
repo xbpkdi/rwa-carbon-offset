@@ -30,6 +30,11 @@ npx tsx --env-file=.env spike/deploy-receipt.ts
 # copy CERTIFICATE_RECEIPT_ADDRESS into .env and apps/web/.env.local
 ```
 
+**Deployed contract (Fuji):** `0x9dd6ae803cab0bd07b4cbc09fab3bc30f7357cc1`
+
+- Contract: https://testnet.snowtrace.io/address/0x9dd6ae803cab0bd07b4cbc09fab3bc30f7357cc1
+- Deploy tx: https://testnet.snowtrace.io/tx/0xf8359adacc9a3618eb9a39e8263fcd66f940e93e775c4966124b25dee2c633b2
+
 Snowtrace: https://testnet.snowtrace.io
 
 # Demo
@@ -45,8 +50,16 @@ Four screens: `/` `/estimate` `/checkout` `/certificate/[id]`
 
 Checkout is a Phase-1 shortcut (no Stripe): it calls Carbonmark then `record()` on Fuji when the recorder key is set.
 
-Fuji deploy needs test AVAX at recorder `0x629506bc91402Ed6675ab5456c7B24BD2bDdD588`:
+End-to-end check (dev server running):
+
+```bash
+npm run e2e:demo
+# if port 3000 is busy: E2E_BASE_URL=http://localhost:3001 npm run e2e:demo
+```
+
+Fuji deploy needs test AVAX on the recorder wallet tied to `FUJI_PRIVATE_KEY`:
 https://core.app/tools/testnet-faucet/?subnet=c&token=c
+
 Then `npm run deploy:fuji`
 
 ## Demo talking points (2 min)

@@ -12,6 +12,7 @@ export async function POST(req: Request) {
   }
 
   try {
+    // Step 1: Retire credits on Carbonmark (sandbox)
     const order = await retireTonnes(tonnes);
     let snowtraceUrl: string | null = null;
     let receiptId: string | null = null;
@@ -20,6 +21,7 @@ export async function POST(req: Request) {
     const contract = process.env.CERTIFICATE_RECEIPT_ADDRESS as `0x${string}` | undefined;
 
     if (fujiKey && contract && order.view_retirement_url) {
+      // Step 2: Mirror receipt on Fuji C-Chain (optional if env set)
       const { recordReceipt } = await import("../../../../../spike/deploy-receipt");
       const tx = order.transaction_hash;
       const sourceTx = (tx && tx.startsWith("0x") && tx.length === 66 ? tx : `0x${"00".repeat(32)}`) as `0x${string}`;
@@ -49,6 +51,7 @@ export async function POST(req: Request) {
       beneficiary: beneficiaryName,
     };
 
+    // Step 3: Save certificate for /certificate/[id]
     addCertificate(cert);
     return NextResponse.json(cert);
   } catch (err) {

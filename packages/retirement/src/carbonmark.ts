@@ -58,7 +58,7 @@ export async function retireTonnes(quantityTonnes = 0.001): Promise<CarbonmarkOr
   const beneficiaryName = process.env.BENEFICIARY_NAME ?? "RWA Carbon Offset";
   const beneficiaryAddress = process.env.BENEFICIARY_ADDRESS;
 
-  // Marketplace listings currently show 0 liquidSupply. Klima protocol sources on Base do not.
+  // Step 1: prices — klimaprotocol sources have liquid supply (marketplace listings often do not)
   const prices = asPriceList(await carbonmarkFetch("/prices?assetPriceType=klimaprotocol"));
 
   const listing = prices.find((p) => {
@@ -72,6 +72,7 @@ export async function retireTonnes(quantityTonnes = 0.001): Promise<CarbonmarkOr
     );
   }
 
+  // Step 2: quote for the chosen source
   const quote = (await carbonmarkFetch("/quotes", {
     method: "POST",
     body: JSON.stringify({
@@ -80,6 +81,7 @@ export async function retireTonnes(quantityTonnes = 0.001): Promise<CarbonmarkOr
     }),
   })) as { uuid: string };
 
+  // Step 3: place order with beneficiary
   await carbonmarkFetch("/orders", {
     method: "POST",
     body: JSON.stringify({
@@ -90,6 +92,7 @@ export async function retireTonnes(quantityTonnes = 0.001): Promise<CarbonmarkOr
     }),
   });
 
+  // Step 4: poll until COMPLETED
   for (let i = 0; i < 30; i++) {
     const raw = await carbonmarkFetch(
       `/orders?quote_uuid=${encodeURIComponent(quote.uuid)}`,

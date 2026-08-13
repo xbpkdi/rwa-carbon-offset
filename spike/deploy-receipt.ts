@@ -3,7 +3,7 @@ import {
   createWalletClient,
   http,
   parseAbi,
-  encodeFunctionData,
+  encodeDeployData,
   decodeEventLog,
   type Hex,
 } from "viem";
@@ -19,6 +19,11 @@ const ABI = parseAbi([
   "event Recorded(uint256 indexed id, bytes32 indexed sourceTx, address indexed beneficiary, string carbonmarkUrl, uint256 mgCO2e)",
 ]);
 
+// Fuji RPC often underestimates gas; pass an explicit limit with a small buffer.
+function withGasBuffer(estimate: bigint): bigint {
+  return estimate + estimate / 10n;
+}
+
 function bytecode(): Hex {
   const artifactPath = resolve(
     import.meta.dirname,
@@ -32,6 +37,19 @@ function bytecode(): Hex {
   }
 }
 
+async function estimateDeployGas(
+  publicClient: ReturnType<typeof createPublicClient>,
+  account: ReturnType<typeof privateKeyToAccount>,
+  code: Hex,
+) {
+  return withGasBuffer(
+    await publicClient.estimateGas({
+      account: account.address,
+      data: encodeDeployData({ abi: ABI, bytecode: code, args: [account.address] }),
+    }),
+  );
+}
+
 export async function deployReceipt(privateKey: Hex) {
   const account = privateKeyToAccount(privateKey);
   const wallet = createWalletClient({
@@ -43,10 +61,13 @@ export async function deployReceipt(privateKey: Hex) {
     chain: avalancheFuji,
     transport: http(process.env.FUJI_RPC_URL),
   });
+  const code = bytecode();
+  const gas = await estimateDeployGas(publicClient, account, code);
   const hash = await wallet.deployContract({
     abi: ABI,
-    bytecode: bytecode(),
+    bytecode: code,
     args: [account.address],
+    gas,
   });
   const receipt = await publicClient.waitForTransactionReceipt({ hash });
   return { address: receipt.contractAddress!, txHash: hash, explorer: `https://testnet.snowtrace.io/tx/${hash}` };
@@ -70,11 +91,21 @@ export async function recordReceipt(args: {
     chain: avalancheFuji,
     transport: http(process.env.FUJI_RPC_URL),
   });
+  const gas = withGasBuffer(
+    await publicClient.estimateContractGas({
+      account: account.address,
+      address: args.contract,
+      abi: ABI,
+      functionName: "record",
+      args: [args.sourceTx, args.carbonmarkUrl, args.mgCO2e, args.beneficiary],
+    }),
+  );
   const hash = await wallet.writeContract({
     address: args.contract,
     abi: ABI,
     functionName: "record",
     args: [args.sourceTx, args.carbonmarkUrl, args.mgCO2e, args.beneficiary],
+    gas,
   });
   const receipt = await publicClient.waitForTransactionReceipt({ hash });
   let id = BigInt(0);
@@ -112,5 +143,3 @@ if (isMain) {
     process.exit(1);
   });
 }
-
-void encodeFunctionData;

@@ -175,7 +175,10 @@ export function HomePageClient({ stats, formatted }: Props) {
 
       <Card className="lg:col-span-3 lg:col-start-1 lg:row-span-2 lg:row-start-4 lg:justify-between">
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-aurora-fg-muted">Emissions by model class</p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-aurora-fg-muted">
+            Emissions by model class
+            <span className="ml-2 normal-case tracking-normal text-aurora-fg-muted/80">· illustrative</span>
+          </p>
           <div className="mt-2.5 flex h-1.5 overflow-hidden rounded-full">
             {activity.map((a) => (
               <span key={a.label} className={cn(a.tone)} style={{ width: `${a.pct}%` }} />

@@ -9,7 +9,6 @@ dist
 out
 coverage
 cache
-out
 broadcast
 *.log
 apps/web/.next
@@ -18,3 +17,4 @@ apps/web/.data
 packages/contracts/out
 packages/contracts/cache
 packages/contracts/broadcast
+.vercel
