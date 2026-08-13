@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { BrandMark } from "@/components/BrandMark";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -12,19 +13,6 @@ const navItems = [
   { href: "/certificate/demo", label: "Certificate" },
   { href: "/methodology", label: "Methodology" },
 ];
-
-function AuroraMark({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
-      <rect width="40" height="40" rx="12" fill="#16A34A" />
-      <path d="M20 8C13 8 8 14 8 21C8 28 13 32 20 32C27 32 32 28 32 21C32 14 27 8 20 8Z" stroke="#FFFFFF" strokeWidth="2" strokeOpacity="0.9" fill="none" />
-      <path d="M20 12C15 12 12 17 12 21C12 26 15 28 20 28C25 28 28 26 28 21C28 17 25 12 20 12Z" stroke="#FFFFFF" strokeWidth="1.5" strokeOpacity="0.7" fill="none" />
-      <path d="M20 16V26" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M20 20C22 19.5 24 18 25 16" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" />
-      <path d="M20 23C18 22.5 16 21 15 19" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 function NavLink({ href, label, exact, compact }: { href: string; label: string; exact?: boolean; compact?: boolean }) {
   const pathname = usePathname();
@@ -60,7 +48,7 @@ export function SiteHeader() {
       <div className="mx-auto max-w-[1500px] rounded-2xl glass-panel px-3 py-2.5 sm:px-5 sm:py-3">
         <div className="flex items-center justify-between gap-3">
           <Link href="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3">
-            <AuroraMark className="h-9 w-9 shrink-0 sm:h-10 sm:w-10" />
+            <BrandMark className="h-9 w-9 shrink-0 sm:h-10 sm:w-10" />
             <div className="flex min-w-0 flex-col">
               <span className="truncate font-display text-base font-semibold tracking-tight text-aurora-fg sm:text-lg">
                 rwa-carbon-offset
