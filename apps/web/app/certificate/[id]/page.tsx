@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { CertDocument } from "@/components/CertDocument";
-import { ForgePath } from "@/components/ForgePath";
+import { FlowShell } from "@/components/FlowShell";
 import { getCertificate } from "@/lib/certificates";
 
 export default async function CertificatePage({ params }: { params: Promise<{ id: string }> }) {
@@ -15,9 +15,8 @@ export default async function CertificatePage({ params }: { params: Promise<{ id
   const shareUrl = `${proto}://${host}/certificate/${cert.id}`;
 
   return (
-    <div className="mx-auto w-full max-w-[1500px] px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
-      <ForgePath activeStep={3} className="mb-4" />
+    <FlowShell step={3}>
       <CertDocument certificate={cert} shareUrl={shareUrl} />
-    </div>
+    </FlowShell>
   );
 }

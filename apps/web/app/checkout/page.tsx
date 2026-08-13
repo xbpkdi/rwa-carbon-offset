@@ -5,7 +5,7 @@ import { Suspense, useState } from "react";
 import { motion } from "framer-motion";
 import { Btn } from "@/components/ui/Btn";
 import { ReceiptSummary } from "@/components/ReceiptSummary";
-import { ForgePath } from "@/components/ForgePath";
+import { FlowShell } from "@/components/FlowShell";
 import { gramsFromMg, modelLabel, parseEstimateSearchParams, runEstimate } from "@/lib/estimate";
 
 function CheckoutForm() {
@@ -36,23 +36,21 @@ function CheckoutForm() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-[1500px] px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
-      <ForgePath activeStep={2} className="mb-4" />
-
-      <div className="grid gap-4 lg:grid-cols-12">
+    <FlowShell step={2}>
+      <div className="grid gap-3 lg:grid-cols-12">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="rounded-xl border border-aurora-border bg-aurora-bg-raised p-5 sm:p-6 lg:col-span-7"
+          className="rounded-xl border border-aurora-border bg-aurora-bg-raised p-4 lg:col-span-7"
         >
           <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-aurora-carbon">Step 2 of 3</p>
-          <h1 className="mt-2 font-display text-2xl font-semibold tracking-tight text-aurora-fg sm:text-3xl">Confirm retirement</h1>
-          <p className="mt-2 text-sm leading-relaxed text-aurora-fg-muted">
+          <h1 className="mt-1.5 font-display text-xl font-semibold tracking-tight text-aurora-fg sm:text-2xl">Confirm retirement</h1>
+          <p className="mt-1.5 text-sm leading-relaxed text-aurora-fg-muted">
             {modelLabel(input.model)} · {input.requests.toLocaleString()} requests · {input.inputTokensPerRequest} in / {input.outputTokensPerRequest} out tokens.
           </p>
 
-          <dl className="mt-6 space-y-3 rounded-xl border border-aurora-border bg-aurora-panel p-5 text-sm">
+          <dl className="mt-4 space-y-2 rounded-xl border border-aurora-border bg-aurora-panel p-4 text-sm">
             <div className="flex justify-between gap-4">
               <dt className="text-aurora-fg-muted">Mid estimate</dt>
               <dd className="font-medium text-aurora-fg">
@@ -74,12 +72,12 @@ function CheckoutForm() {
           </p>
 
           {error && (
-            <p role="alert" className="mt-3 rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">
+            <p role="alert" className="mt-3 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">
               {error}
             </p>
           )}
 
-          <div className="flex flex-wrap items-center gap-2 pt-5">
+          <div className="flex flex-wrap items-center gap-2 pt-4">
             <Btn onClick={handleRetire} disabled={busy} isLoading={busy}>
               {busy ? "Retiring credit…" : "Retire and get certificate"}
             </Btn>
@@ -91,7 +89,7 @@ function CheckoutForm() {
 
         <ReceiptSummary tonnes={result.retireTonnes} grams={result.midMg / 1000} className="lg:col-span-5" />
       </div>
-    </div>
+    </FlowShell>
   );
 }
 

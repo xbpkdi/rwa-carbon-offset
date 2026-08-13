@@ -9,7 +9,7 @@ import { Btn } from "@/components/ui/Btn";
 import { TextField } from "@/components/ui/TextField";
 import { SelectField } from "@/components/ui/SelectField";
 import { StatCard } from "@/components/ui/StatCard";
-import { ForgePath } from "@/components/ForgePath";
+import { FlowShell } from "@/components/FlowShell";
 import {
   DEFAULT_ESTIMATE_INPUT,
   MODEL_OPTIONS,
@@ -43,24 +43,22 @@ export default function EstimatePage() {
   const result = runEstimate(input);
 
   return (
-    <div className="mx-auto w-full max-w-[1500px] px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
-      <ForgePath activeStep={1} className="mb-4" />
-
-      <div className="grid gap-4 lg:grid-cols-12">
+    <FlowShell step={1}>
+      <div className="grid gap-3 lg:grid-cols-12">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="rounded-xl border border-aurora-border bg-aurora-bg-raised p-5 sm:p-6 lg:col-span-7"
+          className="rounded-xl border border-aurora-border bg-aurora-bg-raised p-4 lg:col-span-7"
         >
           <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-aurora-carbon">Step 1 of 3</p>
-          <h1 className="mt-2 font-display text-2xl font-semibold tracking-tight text-aurora-fg sm:text-3xl">Estimate your usage</h1>
-          <p className="mt-2 text-sm leading-relaxed text-aurora-fg-muted">
+          <h1 className="mt-1.5 font-display text-xl font-semibold tracking-tight text-aurora-fg sm:text-2xl">Estimate your usage</h1>
+          <p className="mt-1.5 text-sm leading-relaxed text-aurora-fg-muted">
             Enter the model and request volume. We compute a low/mid/high range using published per-token factors.
           </p>
 
           <form
-            className="mt-6 space-y-4"
+            className="mt-4 space-y-3"
             onSubmit={(e) => {
               e.preventDefault();
               router.push(`/checkout?${checkoutQuery(input)}`);
@@ -80,7 +78,7 @@ export default function EstimatePage() {
               onChange={(e) => setRequests(e.target.value === "" ? "" : Number(e.target.value))}
               hint="Total number of inference calls"
             />
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2">
               <TextField
                 label="Output tokens / request"
                 type="number"
@@ -100,7 +98,7 @@ export default function EstimatePage() {
             </div>
 
             {result.reductionPctIfFlash > 0 && (
-              <p className="rounded-xl border border-aurora-border bg-aurora-panel p-4 text-sm text-aurora-fg-muted">
+              <p className="rounded-xl border border-aurora-border bg-aurora-panel p-3 text-sm text-aurora-fg-muted">
                 Switching to Gemini Flash would cut ~{result.reductionPctIfFlash}%. Reduce before offset.
               </p>
             )}
@@ -118,7 +116,7 @@ export default function EstimatePage() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.28, delay: 0.05, ease: "easeOut" }}
-          className="space-y-4 lg:col-span-5"
+          className="space-y-3 lg:col-span-5"
         >
           <StatCard
             label="Mid estimate"
@@ -126,22 +124,35 @@ export default function EstimatePage() {
             unit="gCO₂e"
             note="Best-guess footprint used for retirement sizing"
             accent
+            className="!p-4 [&_.font-display]:text-2xl [&_.font-display]:sm:text-3xl [&_.text-lg]:text-base [&_p.text-sm]:mt-1.5 [&_p.text-sm]:text-xs"
           />
-          <div className="grid gap-4 sm:grid-cols-2">
-            <StatCard label="Low estimate" value={<AnimatedNumber value={gramsFromMg(result.lowMg)} />} unit="gCO₂e" note="Optimistic factor scenario" />
-            <StatCard label="High estimate" value={<AnimatedNumber value={gramsFromMg(result.highMg)} />} unit="gCO₂e" note="Conservative factor scenario" />
+          <div className="grid gap-3 sm:grid-cols-2">
+            <StatCard
+              label="Low estimate"
+              value={<AnimatedNumber value={gramsFromMg(result.lowMg)} />}
+              unit="gCO₂e"
+              note="Optimistic factor scenario"
+              className="!p-4 [&_.font-display]:text-2xl [&_.font-display]:sm:text-3xl [&_.text-lg]:text-base [&_p.text-sm]:mt-1.5 [&_p.text-sm]:text-xs"
+            />
+            <StatCard
+              label="High estimate"
+              value={<AnimatedNumber value={gramsFromMg(result.highMg)} />}
+              unit="gCO₂e"
+              note="Conservative factor scenario"
+              className="!p-4 [&_.font-display]:text-2xl [&_.font-display]:sm:text-3xl [&_.text-lg]:text-base [&_p.text-sm]:mt-1.5 [&_p.text-sm]:text-xs"
+            />
           </div>
-          <div className="rounded-xl border border-aurora-border bg-aurora-bg-raised p-5">
+          <div className="rounded-xl border border-aurora-border bg-aurora-bg-raised p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-aurora-fg-muted">Retirement batch</p>
-            <p className="mt-2 font-display text-3xl font-semibold text-aurora-fg">
+            <p className="mt-1.5 font-display text-2xl font-semibold text-aurora-fg">
               <AnimatedNumber value={result.retireTonnes.toFixed(3)} />
-              <span className="ml-1 text-lg font-medium text-aurora-fg-muted">tCO₂e</span>
+              <span className="ml-1 text-base font-medium text-aurora-fg-muted">tCO₂e</span>
             </p>
             <p className="mt-1 text-sm text-aurora-fg-muted">Rounded up to next 0.001 t minimum</p>
-            <p className="mt-3 font-mono text-xs text-aurora-fg-muted">factor set {result.factorSetVersion}</p>
+            <p className="mt-2 font-mono text-xs text-aurora-fg-muted">factor set {result.factorSetVersion}</p>
           </div>
         </motion.div>
       </div>
-    </div>
+    </FlowShell>
   );
 }

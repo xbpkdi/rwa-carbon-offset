@@ -46,21 +46,21 @@ export function CertDocument({ certificate, shareUrl: shareUrlProp, className }:
       >
         <div className="h-1 w-full bg-aurora-carbon" />
 
-        <div className="p-6 sm:p-10">
-          <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-start">
+        <div className="p-4 sm:p-6">
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-aurora-carbon">
                 Retirement certificate
               </p>
-              <h1 className="mt-4 font-display text-6xl font-semibold tracking-tight text-aurora-fg sm:text-7xl">
+              <h1 className="mt-2 font-display text-5xl font-semibold tracking-tight text-aurora-fg sm:text-6xl">
                 {certificate.tonnes.toFixed(3)}
-                <span className="ml-2 text-3xl font-medium text-aurora-fg-muted sm:text-4xl">
+                <span className="ml-2 text-2xl font-medium text-aurora-fg-muted sm:text-3xl">
                   tCO₂e
                 </span>
               </h1>
-              <p className="mt-1 text-xl font-medium text-aurora-fg">retired</p>
+              <p className="mt-1 text-lg font-medium text-aurora-fg">retired</p>
 
-              <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-aurora-fg-muted">
+              <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-aurora-fg-muted">
                 <span className="font-medium text-aurora-fg">{beneficiary}</span>
                 <span aria-hidden="true">·</span>
                 <span>Issued {new Date(certificate.createdAt).toUTCString()}</span>
@@ -74,19 +74,20 @@ export function CertDocument({ certificate, shareUrl: shareUrlProp, className }:
             <ShareActions url={shareUrl} title={shareTitle} />
           </div>
 
-          <div className="mt-8">
+          <div className="mt-5">
             <ProofPipeline stages={stages} />
           </div>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {certificate.carbonmarkUrl ? (
               <ProofLinkCard
                 title="Carbonmark registry"
                 description="Public retirement certificate"
                 href={certificate.carbonmarkUrl}
+                className="!p-4"
               />
             ) : (
-              <div className="rounded-xl border border-aurora-border bg-aurora-bg-raised p-5 text-sm text-aurora-fg-muted">
+              <div className="rounded-xl border border-aurora-border bg-aurora-bg-raised p-4 text-sm text-aurora-fg-muted">
                 Carbonmark certificate pending
               </div>
             )}
@@ -95,19 +96,20 @@ export function CertDocument({ certificate, shareUrl: shareUrlProp, className }:
                 title="Fuji C-Chain"
                 description="CertificateReceipt on Snowtrace"
                 href={certificate.snowtraceUrl}
+                className="!p-4"
               />
             ) : (
-              <div className="rounded-xl border border-aurora-border bg-aurora-bg-raised p-5 text-sm text-aurora-fg-muted">
+              <div className="rounded-xl border border-aurora-border bg-aurora-bg-raised p-4 text-sm text-aurora-fg-muted">
                 Fuji receipt pending — certificate remains valid via Carbonmark
               </div>
             )}
           </div>
 
-          <details className="mt-8 rounded-2xl border border-aurora-border bg-aurora-bg-raised/50">
-            <summary className="cursor-pointer p-4 text-sm font-semibold text-aurora-fg hover:text-aurora-carbon">
+          <details className="mt-5 rounded-2xl border border-aurora-border bg-aurora-bg-raised/50">
+            <summary className="cursor-pointer p-3 text-sm font-semibold text-aurora-fg hover:text-aurora-carbon">
               Certificate details
             </summary>
-            <div className="space-y-2 border-t border-aurora-border p-4 font-mono text-xs text-aurora-fg-muted">
+            <div className="space-y-2 border-t border-aurora-border p-3 font-mono text-xs text-aurora-fg-muted">
               <div className="flex justify-between gap-4">
                 <span>Source transaction</span>
                 <span className="truncate text-aurora-fg">{certificate.sourceTx ?? "Pending"}</span>

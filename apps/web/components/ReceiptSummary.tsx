@@ -28,16 +28,16 @@ export function ReceiptSummary({ tonnes, grams, className }: ReceiptSummaryProps
         className,
       )}
     >
-      <div className="p-5 sm:p-6">
+      <div className="p-4">
         <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-aurora-carbon">
           Retirement preview
         </p>
-        <p className="mt-3 font-display text-4xl font-semibold tracking-tight text-aurora-fg sm:text-5xl">
+        <p className="mt-2 font-display text-3xl font-semibold tracking-tight text-aurora-fg sm:text-4xl">
           {tonnes.toFixed(3)}
         </p>
-        <p className="text-lg font-medium text-aurora-fg-muted">tCO₂e</p>
+        <p className="text-base font-medium text-aurora-fg-muted">tCO₂e</p>
 
-        <div className="mt-6 space-y-3 border-t border-aurora-border pt-5">
+        <div className="mt-4 space-y-2 border-t border-aurora-border pt-4">
           {rows.map((row, idx) => (
             <motion.div
               key={row.label}
