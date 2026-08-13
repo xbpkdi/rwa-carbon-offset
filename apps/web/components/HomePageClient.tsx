@@ -129,11 +129,11 @@ export function HomePageClient({ stats, formatted }: Props) {
           <div className="flex justify-center lg:hidden">
             <Orb className="h-36 w-36 sm:h-44 sm:w-44" />
           </div>
-          <div className="mt-auto space-y-1.5">
-            <div className="flex flex-col gap-1.5 sm:flex-row sm:items-stretch">
+          <div className="mt-auto space-y-3">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch">
               {steps.map((s, i) => (
                 <div key={s.n} className="flex min-w-0 flex-1 items-center gap-1.5">
-                  <div className="min-w-0 flex-1 rounded-lg border border-aurora-border bg-aurora-panel px-2.5 py-1.5">
+                  <div className="min-w-0 flex-1 rounded-lg border border-aurora-border bg-aurora-panel px-2.5 py-2">
                     <p className="font-mono text-[10px] text-aurora-carbon">{s.n}</p>
                     <p className="font-display text-xs font-semibold text-aurora-fg sm:text-sm">{s.label}</p>
                     <p className="truncate text-[10px] text-aurora-fg-muted">{s.hint}</p>
@@ -146,7 +146,7 @@ export function HomePageClient({ stats, formatted }: Props) {
                 </div>
               ))}
             </div>
-            <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 font-mono text-[9px] uppercase tracking-[0.16em] text-aurora-fg-muted sm:text-[10px]">
+            <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 pt-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-aurora-fg-muted sm:text-[10px]">
               {["Verified", "Avalanche Fuji", "Team1 Thailand", "Protocol Camp", "On-chain proof"].map((t, i) => (
                 <span key={t} className="flex items-center gap-2">
                   {i > 0 && <span className="h-1 w-1 rounded-full bg-aurora-carbon/70" />}
@@ -161,14 +161,14 @@ export function HomePageClient({ stats, formatted }: Props) {
       <Card className="lg:col-span-3 lg:row-span-3 lg:justify-between">
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-aurora-fg-muted">Live network</p>
-          <div className="mt-2 grid gap-1.5">
+          <div className="mt-2 grid gap-2">
             {[
               { k: "Certificates issued", v: formatted.certificateCount },
               { k: "Unique retirers", v: formatted.uniqueBeneficiaries },
             ].map((s) => (
               <div
                 key={s.k}
-                className="flex items-center justify-between rounded-lg border border-aurora-border bg-aurora-panel px-2.5 py-1.5"
+                className="flex items-center justify-between rounded-lg border border-aurora-border bg-aurora-panel px-2.5 py-2"
               >
                 <span className="text-[11px] text-aurora-fg-muted">{s.k}</span>
                 <span className="font-display text-base font-semibold text-aurora-fg">{s.v}</span>
@@ -176,9 +176,9 @@ export function HomePageClient({ stats, formatted }: Props) {
             ))}
           </div>
         </div>
-        <div className="mt-2 lg:mt-0">
+        <div className="mt-4 border-t border-aurora-border/60 pt-3 lg:mt-auto">
           <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-aurora-fg-muted">Forecast</p>
-          <div className="mt-2 space-y-1.5">
+          <div className="mt-2.5 space-y-2">
             {[
               { k: "Monthly", v: formatted.monthlyMgCO2e },
               { k: "Yearly", v: formatted.yearlyMgCO2e },

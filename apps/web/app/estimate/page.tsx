@@ -103,11 +103,15 @@ export default function EstimatePage() {
               </p>
             )}
 
-            <div className="flex flex-wrap items-center gap-2 pt-2">
-              <Btn type="submit">Continue to retirement</Btn>
-              <Link href="/">
-                <Btn variant="secondary" type="button">Back</Btn>
+            <div className="flex flex-col-reverse gap-2 pt-4 sm:flex-row sm:items-center sm:justify-between">
+              <Link href="/" className="w-full sm:w-auto">
+                <Btn variant="secondary" type="button" className="w-full sm:w-auto">
+                  Back
+                </Btn>
               </Link>
+              <Btn type="submit" className="w-full sm:w-auto">
+                Continue to retirement
+              </Btn>
             </div>
           </form>
         </motion.div>
