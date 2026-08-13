@@ -1,10 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Atmosphere } from "@/components/Atmosphere";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
+export const viewport: Viewport = {
+  themeColor: "#050807",
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://rwa-carbon-offset.vercel.app"),
   title: "rwa-carbon-offset — Measure AI emissions, retire real carbon",
   description:
     "Measure AI model CO₂ emissions, retire verified carbon credits via Carbonmark, and publish on-chain proof on Avalanche Fuji.",
@@ -19,8 +24,14 @@ export const metadata: Metadata = {
       "Measure AI model CO₂ emissions, retire verified carbon credits via Carbonmark, and publish on-chain proof on Avalanche Fuji.",
     type: "website",
     siteName: "rwa-carbon-offset",
+    url: "https://rwa-carbon-offset.vercel.app",
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    title: "rwa-carbon-offset — Measure AI emissions, retire real carbon",
+    description:
+      "Measure AI model CO₂ emissions, retire verified carbon credits via Carbonmark, and publish on-chain proof on Avalanche Fuji.",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
