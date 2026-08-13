@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { BrandMark } from "@/components/BrandMark";
+import { AuroraMark } from "@/components/AuroraMark";
 
 function XIcon({ className }: { className?: string }) {
   return (
@@ -47,7 +47,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1500px]">
         <div className="flex flex-col items-start justify-between gap-4 rounded-2xl glass-panel p-4 sm:flex-row sm:items-center sm:px-5 sm:py-3">
           <Link href="/" className="flex min-w-0 items-center gap-3">
-            <BrandMark className="h-10 w-10 shrink-0" />
+            <AuroraMark className="h-10 w-10 shrink-0" />
             <div className="flex min-w-0 flex-col">
               <span className="truncate font-display text-lg font-semibold tracking-tight text-aurora-fg">
                 rwa-carbon-offset

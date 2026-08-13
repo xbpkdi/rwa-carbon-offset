@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { brandMarkSvg } from "@/components/BrandMark";
+import { auroraMarkSvg } from "@/components/AuroraMark";
 
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
@@ -16,7 +16,7 @@ export default function AppleIcon() {
           justifyContent: "center",
         }}
       >
-        {brandMarkSvg(180)}
+        {auroraMarkSvg(180)}
       </div>
     ),
     size,

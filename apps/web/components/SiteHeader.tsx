@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { BrandMark } from "@/components/BrandMark";
+import { AuroraMark } from "@/components/AuroraMark";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -48,7 +48,7 @@ export function SiteHeader() {
       <div className="mx-auto max-w-[1500px] rounded-2xl glass-panel px-3 py-2.5 sm:px-5 sm:py-3">
         <div className="flex items-center justify-between gap-3">
           <Link href="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3">
-            <BrandMark className="h-9 w-9 shrink-0 sm:h-10 sm:w-10" />
+            <AuroraMark className="h-9 w-9 shrink-0 sm:h-10 sm:w-10" />
             <div className="flex min-w-0 flex-col">
               <span className="truncate font-display text-base font-semibold tracking-tight text-aurora-fg sm:text-lg">
                 rwa-carbon-offset
