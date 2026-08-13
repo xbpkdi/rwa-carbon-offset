@@ -15,12 +15,9 @@ export const metadata: Metadata = {
     "Measure AI model CO₂ emissions, retire verified carbon credits via Carbonmark, and publish on-chain proof on Avalanche Fuji.",
   applicationName: "rwa-carbon-offset",
   icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/icon", type: "image/png", sizes: "32x32" },
-    ],
-    apple: [{ url: "/apple-icon", type: "image/png" }],
-    shortcut: "/favicon.svg",
+    icon: [{ url: "/favicon.svg?v=leaf", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-icon.png?v=leaf", type: "image/png", sizes: "180x180" }],
+    shortcut: "/favicon.svg?v=leaf",
   },
   openGraph: {
     title: "rwa-carbon-offset — Measure AI emissions, retire real carbon",
