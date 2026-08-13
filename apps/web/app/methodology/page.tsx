@@ -7,19 +7,19 @@ export default function MethodologyPage() {
   const sections = [
     {
       title: "Factor model",
-      body: "Each model has an output factor and an input factor (mg CO₂e per 1,000 tokens). We add a fixed overhead, convert to energy using a grid intensity of 400 gCO₂e/kWh, apply a PUE of 1.1, and add a small embodied emissions term per request.",
+      body: "Each model has separate input and output factors (mg CO₂e per 1,000 tokens). We add fixed overhead, convert to energy at 400 gCO₂e/kWh, apply a PUE of 1.1, and include a small embodied-emissions term per request.",
     },
     {
       title: "Range",
-      body: "Low = 0.4× mid. High = 2.5× mid. The mid estimate is what we use to size the retirement batch.",
+      body: "Low is 0.4× the mid estimate; high is 2.5× mid. We use the mid value to size each retirement batch.",
     },
     {
       title: "Retirement",
-      body: "Carbonmark credits are retired in 0.001 t batches. We round the mid estimate up to the next 0.001 t, never down, so the retirement always covers the footprint.",
+      body: "Carbonmark credits retire in 0.001 t batches. We round the mid estimate up to the next 0.001 t, never down, so each batch always covers the footprint.",
     },
     {
       title: "On-chain proof",
-      body: "A CertificateReceipt contract on Avalanche Fuji C-Chain stores the retirement metadata. The certificate page links to the public Carbonmark retirement certificate and the Fuji transaction on Snowtrace.",
+      body: "A CertificateReceipt contract on Avalanche Fuji C-Chain stores retirement metadata. The certificate page links to the public Carbonmark record and the Fuji transaction on Snowtrace.",
     },
   ];
 
@@ -28,7 +28,7 @@ export default function MethodologyPage() {
       <SectionIntro
         kicker="Methodology"
         title="How estimates work"
-        body="Published per-request emissions figures span 65× or more. We show a defensible range, not fake precision."
+        body="Published per-request estimates can differ by 65× or more. We report a range instead of a single precise number."
       />
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         {sections.map((section, idx) => (
