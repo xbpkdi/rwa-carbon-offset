@@ -1,0 +1,24 @@
+{
+  "name": "rwa-carbon-offset",
+  "private": true,
+  "type": "module",
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "spike:carbonmark": "node --experimental-strip-types --env-file=.env spike/retire.ts",
+    "spike:klima": "node --experimental-strip-types --env-file=.env spike/klima-retire.ts",
+    "compile:contract": "node --experimental-strip-types spike/compile-contract.ts",
+    "deploy:fuji": "node --experimental-strip-types --env-file=.env spike/deploy-receipt.ts",
+    "deploy:fuji:wait": "node --experimental-strip-types --env-file=.env spike/wait-and-deploy.ts",
+    "e2e:demo": "node --experimental-strip-types --env-file=.env spike/e2e-demo.ts",
+    "dev": "npm run dev -w web",
+    "build": "npm run build -w web"
+  },
+  "devDependencies": {
+    "solc": "^0.8.24.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "viem": "^2.33.2"
+  }
+}
