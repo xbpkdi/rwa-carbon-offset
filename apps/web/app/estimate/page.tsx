@@ -8,7 +8,8 @@ import type { ModelId } from "@core/emissions";
 import { Btn } from "@/components/ui/Btn";
 import { TextField } from "@/components/ui/TextField";
 import { SelectField } from "@/components/ui/SelectField";
-import { FlowShell } from "@/components/FlowShell";
+import { StatCard } from "@/components/ui/StatCard";
+import { ForgePath } from "@/components/ForgePath";
 import {
   DEFAULT_ESTIMATE_INPUT,
   MODEL_OPTIONS,
@@ -20,7 +21,7 @@ import {
 
 function AnimatedNumber({ value }: { value: string }) {
   return (
-    <motion.span key={value} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
+    <motion.span key={value} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, ease: "easeOut" }}>
       {value}
     </motion.span>
   );
@@ -42,21 +43,24 @@ export default function EstimatePage() {
   const result = runEstimate(input);
 
   return (
-    <FlowShell step={1}>
-      <div className="grid gap-3 lg:grid-cols-12 lg:items-start">
+    <div className="mx-auto w-full max-w-[1500px] px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
+      <ForgePath activeStep={1} className="mb-4" />
+
+      <div className="grid gap-4 lg:grid-cols-12">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2 }}
-          className="rounded-xl border border-aurora-border bg-aurora-bg-raised p-4 lg:col-span-7"
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          className="rounded-xl border border-aurora-border bg-aurora-bg-raised p-5 sm:p-6 lg:col-span-7"
         >
           <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-aurora-carbon">Step 1 of 3</p>
-          <h1 className="mt-1 font-display text-xl font-semibold tracking-tight text-aurora-fg sm:text-2xl">
-            Estimate your usage
-          </h1>
+          <h1 className="mt-2 font-display text-2xl font-semibold tracking-tight text-aurora-fg sm:text-3xl">Estimate your usage</h1>
+          <p className="mt-2 text-sm leading-relaxed text-aurora-fg-muted">
+            Enter the model and request volume. We compute a low/mid/high range using published per-token factors.
+          </p>
 
           <form
-            className="mt-3 space-y-3"
+            className="mt-6 space-y-4"
             onSubmit={(e) => {
               e.preventDefault();
               router.push(`/checkout?${checkoutQuery(input)}`);
@@ -68,81 +72,76 @@ export default function EstimatePage() {
               onChange={(e) => setModel(e.target.value as ModelId)}
               options={MODEL_OPTIONS.map((m) => ({ value: m.id, label: m.label }))}
             />
-            <div className="grid gap-3 sm:grid-cols-2">
+            <TextField
+              label="Requests"
+              type="number"
+              min={1}
+              value={requests}
+              onChange={(e) => setRequests(e.target.value === "" ? "" : Number(e.target.value))}
+              hint="Total number of inference calls"
+            />
+            <div className="grid gap-4 sm:grid-cols-2">
               <TextField
-                label="Requests"
-                type="number"
-                min={1}
-                value={requests}
-                onChange={(e) => setRequests(e.target.value === "" ? "" : Number(e.target.value))}
-              />
-              <TextField
-                label="Output tokens / req"
+                label="Output tokens / request"
                 type="number"
                 min={0}
                 value={outputTokens}
                 onChange={(e) => setOutputTokens(e.target.value === "" ? "" : Number(e.target.value))}
+                hint="Generated tokens"
+              />
+              <TextField
+                label="Input tokens / request"
+                type="number"
+                min={0}
+                value={inputTokens}
+                onChange={(e) => setInputTokens(e.target.value === "" ? "" : Number(e.target.value))}
+                hint="Prompt tokens"
               />
             </div>
-            <TextField
-              label="Input tokens / request"
-              type="number"
-              min={0}
-              value={inputTokens}
-              onChange={(e) => setInputTokens(e.target.value === "" ? "" : Number(e.target.value))}
-            />
 
             {result.reductionPctIfFlash > 0 && (
-              <p className="text-xs text-aurora-fg-muted">
-                Gemini Flash would cut ~{result.reductionPctIfFlash}% vs this model.
+              <p className="rounded-xl border border-aurora-border bg-aurora-panel p-4 text-sm text-aurora-fg-muted">
+                Switching to Gemini Flash would cut ~{result.reductionPctIfFlash}%. Reduce before offset.
               </p>
             )}
 
-            <div className="flex flex-wrap items-center gap-2 pt-1">
-              <Btn type="submit" size="sm">
-                Continue to retirement
-              </Btn>
+            <div className="flex flex-wrap items-center gap-2 pt-2">
+              <Btn type="submit">Continue to retirement</Btn>
               <Link href="/">
-                <Btn variant="secondary" type="button" size="sm">
-                  Back
-                </Btn>
+                <Btn variant="secondary" type="button">Back</Btn>
               </Link>
             </div>
           </form>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.25, delay: 0.04 }}
-          className="rounded-xl border border-aurora-carbon/35 bg-aurora-carbon-panel p-4 lg:col-span-5"
+          transition={{ duration: 0.28, delay: 0.05, ease: "easeOut" }}
+          className="space-y-4 lg:col-span-5"
         >
-          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-aurora-carbon">Estimate range</p>
-          <div className="mt-2 grid grid-cols-3 gap-2">
-            {[
-              { label: "Low", mg: result.lowMg },
-              { label: "Mid", mg: result.midMg },
-              { label: "High", mg: result.highMg },
-            ].map((row) => (
-              <div key={row.label} className="rounded-lg border border-aurora-border/60 bg-aurora-bg-raised/40 px-2 py-2 text-center">
-                <p className="text-[10px] uppercase tracking-wide text-aurora-fg-muted">{row.label}</p>
-                <p className="mt-0.5 font-display text-lg font-semibold text-aurora-fg">
-                  <AnimatedNumber value={gramsFromMg(row.mg)} />
-                </p>
-                <p className="text-[10px] text-aurora-fg-muted">gCO₂e</p>
-              </div>
-            ))}
+          <StatCard
+            label="Mid estimate"
+            value={<AnimatedNumber value={gramsFromMg(result.midMg)} />}
+            unit="gCO₂e"
+            note="Best-guess footprint used for retirement sizing"
+            accent
+          />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <StatCard label="Low estimate" value={<AnimatedNumber value={gramsFromMg(result.lowMg)} />} unit="gCO₂e" note="Optimistic factor scenario" />
+            <StatCard label="High estimate" value={<AnimatedNumber value={gramsFromMg(result.highMg)} />} unit="gCO₂e" note="Conservative factor scenario" />
           </div>
-          <div className="mt-3 border-t border-aurora-border/60 pt-3">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-aurora-fg-muted">Retirement batch</p>
-            <p className="mt-1 font-display text-2xl font-semibold text-aurora-fg">
+          <div className="rounded-xl border border-aurora-border bg-aurora-bg-raised p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-aurora-fg-muted">Retirement batch</p>
+            <p className="mt-2 font-display text-3xl font-semibold text-aurora-fg">
               <AnimatedNumber value={result.retireTonnes.toFixed(3)} />
-              <span className="ml-1 text-sm font-medium text-aurora-fg-muted">tCO₂e</span>
+              <span className="ml-1 text-lg font-medium text-aurora-fg-muted">tCO₂e</span>
             </p>
-            <p className="mt-1 text-[11px] text-aurora-fg-muted">Min 0.001 t · {result.factorSetVersion}</p>
+            <p className="mt-1 text-sm text-aurora-fg-muted">Rounded up to next 0.001 t minimum</p>
+            <p className="mt-3 font-mono text-xs text-aurora-fg-muted">factor set {result.factorSetVersion}</p>
           </div>
         </motion.div>
       </div>
-    </FlowShell>
+    </div>
   );
 }

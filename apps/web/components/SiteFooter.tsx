@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { BrandMark } from "@/components/BrandMark";
 
@@ -38,28 +37,6 @@ function XLink({ handle, href }: { handle: string; href: string }) {
 }
 
 export function SiteFooter() {
-  const pathname = usePathname();
-  const isFlowPage =
-    pathname === "/estimate" ||
-    pathname === "/checkout" ||
-    pathname.startsWith("/certificate");
-
-  if (isFlowPage) {
-    return (
-      <footer className="w-full px-3 pb-2 pt-0 sm:px-6 lg:px-8">
-        <p className="mx-auto max-w-[1500px] text-center font-mono text-[10px] text-aurora-fg-muted">
-          <a href="https://www.protocolcamp.com" target="_blank" rel="noopener noreferrer" className="hover:text-aurora-carbon">
-            Protocol Camp
-          </a>
-          {" · "}
-          <a href="https://www.team1.network" target="_blank" rel="noopener noreferrer" className="hover:text-aurora-carbon">
-            Avalanche Team1 (Thailand)
-          </a>
-        </p>
-      </footer>
-    );
-  }
-
   return (
     <motion.footer
       initial={{ opacity: 0 }}
