@@ -1,5 +1,8 @@
 # Phase 0 results
 
+See [README](../README.md) for project status, acknowledgments, and roadmap.
+
+
 ## Carbonmark REST — succeeded
 
 - Host used: `https://v19.api.carbonmark.com` (`v1.api.carbonmark.com` TLS cert expired May 2024)
