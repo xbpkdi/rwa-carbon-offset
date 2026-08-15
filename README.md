@@ -2,15 +2,14 @@
 
 Measure AI emissions → retire verified Carbonmark credits → Avalanche Fuji C-Chain receipt.
 
-**Live demo:** https://rwa-carbon-offset.vercel.app
+**Live demo:** https://decarbonai.vercel.app
 
 ## Acknowledgments
 
 Built for [Protocol Camp](https://www.protocolcamp.com).
 
-Thanks to [Avalanche Team1 (Thailand)](https://www.team1.network) for ecosystem support. Team1 Thailand does not have a separate website — credit goes to the community and the global Team1 network at [team1.network](https://www.team1.network).
-
-**Team**
+**Group Member**
+From Team1 Thailand
 
 - [@ktsukixb](https://x.com/ktsukixb)
 - [@101beere](https://x.com/101beere)
