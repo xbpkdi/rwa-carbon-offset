@@ -27,11 +27,11 @@ function XLink({ handle, href }: { handle: string; href: string }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 rounded-xl border border-aurora-border bg-aurora-panel px-4 py-2.5 text-sm font-medium text-aurora-fg transition-all hover:border-aurora-border-strong hover:bg-aurora-bg-raised"
+      className="inline-flex w-full min-w-0 items-center justify-center gap-2 rounded-xl border border-aurora-border bg-aurora-panel px-3 py-2.5 text-sm font-medium text-aurora-fg transition-all hover:border-aurora-border-strong hover:bg-aurora-bg-raised sm:w-auto sm:justify-start sm:px-4"
     >
-      <XIcon className="h-4 w-4 text-aurora-fg-muted" />
-      <span>{handle}</span>
-      <ExternalIcon className="ml-1 h-3.5 w-3.5 text-aurora-fg-muted" />
+      <XIcon className="h-4 w-4 shrink-0 text-aurora-fg-muted" />
+      <span className="truncate">{handle}</span>
+      <ExternalIcon className="ml-auto h-3.5 w-3.5 shrink-0 text-aurora-fg-muted sm:ml-1" />
     </a>
   );
 }
@@ -45,7 +45,7 @@ export function SiteFooter() {
       className="w-full px-3 pb-3 pt-0 sm:px-6 sm:pb-4 lg:px-8"
     >
       <div className="mx-auto max-w-[1500px]">
-        <div className="flex flex-col items-start justify-between gap-4 rounded-2xl glass-panel p-4 sm:flex-row sm:items-center sm:px-5 sm:py-3">
+        <div className="flex flex-col items-stretch justify-between gap-4 rounded-2xl glass-panel p-4 sm:flex-row sm:items-center sm:px-5 sm:py-3">
           <Link href="/" className="flex min-w-0 items-center gap-3">
             <AuroraMark className="h-10 w-10 shrink-0" />
             <div className="flex min-w-0 flex-col">
@@ -55,7 +55,7 @@ export function SiteFooter() {
               <span className="text-sm text-aurora-fg-muted">Verified AI-emissions retirement on Avalanche</span>
             </div>
           </Link>
-          <div className="flex flex-wrap gap-3">
+          <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:flex-wrap sm:gap-3">
             <XLink handle="@ktsukixb" href="https://x.com/ktsukixb" />
             <XLink handle="@101beere" href="https://x.com/101beere" />
           </div>
